@@ -11,7 +11,7 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  about: {
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
     required: true
   },
