@@ -4,9 +4,9 @@ const { NotFoundError, checkError } = require('../errors/errors');
 module.exports.getUsers = (req, res) => {
   User
     .find({})
-    .then(users => res.send({ data: users }))
-    .catch(err => checkError(err, res));
-}
+    .then((users) => res.send({ data: users }))
+    .catch((err) => checkError(err, res));
+};
 
 module.exports.getUser = (req, res) => {
   User
@@ -14,18 +14,18 @@ module.exports.getUser = (req, res) => {
     .orFail(() => {
       throw new NotFoundError('Запрашиваемый пользователь не найден');
     })
-    .then(user => res.send({ data: user }))
-    .catch(err => checkError(err, res));
-}
+    .then((user) => res.send({ data: user }))
+    .catch((err) => checkError(err, res));
+};
 
 module.exports.createUser = (req, res) => {
   const { name, about, avatar } = req.body;
 
   User
     .create({ name, about, avatar })
-    .then(user => res.send({ data: user }))
-    .catch(err => checkError(err, res));
-}
+    .then((user) => res.send({ data: user }))
+    .catch((err) => checkError(err, res));
+};
 
 module.exports.updateUser = (req, res) => {
   const { name, about } = req.body;
@@ -37,15 +37,15 @@ module.exports.updateUser = (req, res) => {
       {
         new: true,
         runValidators: true,
-        upsert: false
-      }
+        upsert: false,
+      },
     )
     .orFail(() => {
       throw new NotFoundError('Не удалось обновить информацию о пользователе, т.к. он не найден в базе данных ');
     })
-    .then(user => res.send({ data: user }))
-    .catch(err => checkError(err, res));
-}
+    .then((user) => res.send({ data: user }))
+    .catch((err) => checkError(err, res));
+};
 
 module.exports.updateAvatar = (req, res) => {
   const { avatar } = req.body;
@@ -57,12 +57,12 @@ module.exports.updateAvatar = (req, res) => {
       {
         new: true,
         runValidators: true,
-        upsert: false
-      }
+        upsert: false,
+      },
     )
     .orFail(() => {
       throw new NotFoundError('Не удалось обновить аватар пользователя, т.к. он не найден в базе данных ');
     })
-    .then(user => res.send({ data: user }))
-    .catch(err => checkError(err, res));
-}
+    .then((user) => res.send({ data: user }))
+    .catch((err) => checkError(err, res));
+};

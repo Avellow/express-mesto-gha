@@ -8,7 +8,7 @@ const app = express();
 
 app.use((req, res, next) => {
   req.user = {
-    _id: '6229d9b7565a0c46c52a40d3'
+    _id: '6229d9b7565a0c46c52a40d3',
   };
 
   next();
@@ -22,12 +22,6 @@ app.use('/cards', require('./routes/cards'));
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
-
-
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
-})
-
-// 62272eb6e0e3d88a9af21687 userId
+app.listen(PORT);
