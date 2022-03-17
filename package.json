@@ -15,6 +15,7 @@
   "description": "[![Tests](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-13-sprint.yml/badge.svg)](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-13-sprint.yml) [![Tests](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-14-sprint.yml/badge.svg)](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-14-sprint.yml) # Проект Mesto фронтенд + бэкенд",
   "main": "app.js",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.2",
     "express": "^4.17.3",
     "mongoose": "^6.2.4",
