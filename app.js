@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const { login, createUser } = require('./controllers/user');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -18,6 +19,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/users', require('./routes/users'));
 app.use('/cards', require('./routes/cards'));
+
+app.post('/signin', login);
+app.post('/signup', createUser);
 
 app.use((req, res) => {
   res.status(404).send({ message: 'Ресурс не найден!' });
