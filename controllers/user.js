@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const { NotFoundError, checkError } = require('../errors/errors');
@@ -79,5 +80,18 @@ module.exports.updateAvatar = (req, res) => {
       throw new NotFoundError('Не удалось обновить аватар пользователя, т.к. он не найден в базе данных ');
     })
     .then((user) => res.send({ data: user }))
+    .catch((err) => checkError(err, res));
+};
+
+module.exports.login = (req, res) => {
+  const { email, password } = req.body;
+
+  return User
+    .findUserByCredentials(email, password)
+    .then((user) => {
+      res.send({
+        token: jwt.sign({ _id: user._id }, 'some-secret', { expiresIn: '7d' }),
+      });
+    })
     .catch((err) => checkError(err, res));
 };
