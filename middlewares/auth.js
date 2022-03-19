@@ -6,10 +6,10 @@ const handleAuthError = (res) => {
     .send({ message: 'Необходима авторизация' });
 };
 
-const extractBearerHeader = (header) => header.replace('Bearer', '');
+const extractBearerHeader = (header) => header.replace('Bearer ', '');
 
 module.exports = (req, res, next) => {
-  const { authorization } = req.body;
+  const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer')) {
     return handleAuthError(res);
@@ -26,5 +26,5 @@ module.exports = (req, res, next) => {
 
   req.user = payload;
 
-  next();
+  return next();
 };
