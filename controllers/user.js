@@ -95,3 +95,13 @@ module.exports.login = (req, res) => {
     })
     .catch((err) => checkError(err, res));
 };
+
+module.exports.getCurrentUser = (req, res) => {
+  User
+    .findById(req.user._id)
+    .orFail(() => {
+      throw new NotFoundError('Запрашиваемый пользователь не найден');
+    })
+    .then((user) => res.send({ data: user }))
+    .catch((err) => checkError(err, res));
+};
