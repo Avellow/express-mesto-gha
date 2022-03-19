@@ -7,9 +7,9 @@ class NotFoundError extends Error {
 
 const checkError = (err, res) => {
   if (err.name === 'NotFoundError') {
-    res.status(404).send({ message: `404 ${err.message}` });
+    res.status(404).send({ message: `404 ${err.message}`, err });
   } else if (err.name === 'ValidationError' || err.path === '_id') {
-    res.status(400).send({ message: '400 Переданы некорректные данные' });
+    res.status(400).send({ message: '400 Переданы некорректные данные', err });
   } else {
     res.status(500).send({ message: '500 Ошибка по умолчанию', err });
   }
