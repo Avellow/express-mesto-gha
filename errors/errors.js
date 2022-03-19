@@ -5,6 +5,12 @@ class NotFoundError extends Error {
   }
 }
 
+const handleAuthError = (res) => {
+  res
+    .status(403)
+    .send({ message: 'Необходима авторизация' });
+};
+
 const checkError = (err, res) => {
   if (err.name === 'NotFoundError') {
     res.status(404).send({ message: `404 ${err.message}`, err });
@@ -15,4 +21,8 @@ const checkError = (err, res) => {
   }
 };
 
-module.exports = { NotFoundError, checkError };
+module.exports = {
+  NotFoundError,
+  checkError,
+  handleAuthError,
+};
