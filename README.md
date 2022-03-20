@@ -1,26 +1,37 @@
-[![Tests](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-13-sprint.yml/badge.svg)](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-13-sprint.yml) [![Tests](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-14-sprint.yml/badge.svg)](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-14-sprint.yml)
-# Проект Mesto фронтенд + бэкенд
+[![Tests](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-14-sprint.yml/badge.svg)](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-14-sprint.yml)
+# Проект Mesto (back-end)
 
+Основная задача - написать с самого нуля back-end серверное приложение проекта Место.
 
+## Описание проекта
+Серверное приложение на Express. Формирование ответов и отправка данных на клиентские запросы.
+Хранение информации в базе данных MongoBD о пользователях и карточках.
 
-## Настройка бейджей статуса тестов
-Перед началом работы над проектом рекомендуется исправить бейджи, отражающие статус прохождения тестов.
-Для этого замените разметку бейджей на следующий фрагмент, подставив вместо `${имя_пользователя}` и `${имя_репозитория}` соответствующие значения.
+## Функционал
+- Обмен данными между серверным приложением и БД
+- Регистрация и авторизация пользователей по токену
+- Валидация данных, приходящих со стороны клиента
+- Создание и хранение в БД новых пользователей
+- Создание и хранение в БД новых карточек
+- Удаление/изменение данных карточек и пользователей
+- Проверка прав владельца карточек
+- Хранение паролей пользователей в виде хэша
+- Обработка ошибок
 
-```
-[![Tests for sprint 13](https://github.com/${имя_пользователя}/${имя репозитория}/actions/workflows/tests-13-sprint.yml/badge.svg)](https://github.com/${имя_пользователя}/${имя репозитория}/actions/workflows/tests-13-sprint.yml) 
-
-[![Tests for sprint 14](https://github.com/${имя_пользователя}/${имя репозитория}/actions/workflows/tests-14-sprint.yml/badge.svg)](https://github.com/${имя_пользователя}/${имя репозитория}/actions/workflows/tests-14-sprint.yml)
-```
-
+## Технологический стек
+- Node.js
+- Express
+- MongoBD
+- Mongoose
+- ESLint
 
 ## Директории
 
 `/routes` — папка с файлами роутера  
 `/controllers` — папка с файлами контроллеров пользователя и карточки   
 `/models` — папка с файлами описания схем пользователя и карточки  
-  
-Остальные директории вспомогательные, создаются при необходимости разработчиком
+`/errors` — папка с файлами обработки ошибок  
+`/middlewares` — папка с файлами миддлвэров 
 
 ## Запуск проекта
 
