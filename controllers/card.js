@@ -1,23 +1,23 @@
 const Card = require('../models/card');
-const { NotFoundError, checkError } = require('../errors/errors');
+const { NotFoundError } = require('../errors/errors');
 
-module.exports.getCards = (req, res) => {
+module.exports.getCards = (req, res, next) => {
   Card
     .find({})
     .then((cards) => res.send({ data: cards }))
-    .catch((err) => checkError(err, res));
+    .catch(next);
 };
 
-module.exports.createCard = (req, res) => {
+module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
 
   Card
     .create({ name, link, owner: req.user._id })
     .then((card) => res.send({ data: card }))
-    .catch((err) => checkError(err, res));
+    .catch(next);
 };
 
-module.exports.deleteCard = (req, res) => {
+module.exports.deleteCard = (req, res, next) => {
   const { cardId } = req.params;
   const userId = req.user._id;
 
@@ -26,11 +26,11 @@ module.exports.deleteCard = (req, res) => {
     .orFail(() => {
       throw new NotFoundError(`Не удалось удалить карточку с id ${cardId}!`);
     })
-    .then((card) => res.send({ data: card }))
-    .catch((err) => checkError(err, res));
+    .then((card) => res.send({ message: 'Успешно удалена карточка:', data: card }))
+    .catch(next);
 };
 
-module.exports.likeCard = (req, res) => {
+module.exports.likeCard = (req, res, next) => {
   Card
     .findByIdAndUpdate(
       req.params.cardId,
@@ -41,10 +41,10 @@ module.exports.likeCard = (req, res) => {
       throw new NotFoundError(`Не удалось лайкнуть. Карточка с id ${req.params.cardId} не найдена в базе данных!`);
     })
     .then((card) => res.send({ data: card }))
-    .catch((err) => checkError(err, res));
+    .catch(next);
 };
 
-module.exports.dislikeCard = (req, res) => {
+module.exports.dislikeCard = (req, res, next) => {
   Card
     .findByIdAndUpdate(
       req.params.cardId,
@@ -55,5 +55,5 @@ module.exports.dislikeCard = (req, res) => {
       throw new NotFoundError(`Не удалость убрать лайк. Карточка с id ${req.params.cardId} не найдена в базе данных!`);
     })
     .then((card) => res.send({ data: card }))
-    .catch((err) => checkError(err, res));
+    .catch(next);
 };

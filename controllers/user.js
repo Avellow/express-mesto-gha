@@ -1,26 +1,26 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
-const { NotFoundError, checkError } = require('../errors/errors');
+const { NotFoundError } = require('../errors/errors');
 
-module.exports.getUsers = (req, res) => {
+module.exports.getUsers = (req, res, next) => {
   User
     .find({})
     .then((users) => res.send({ data: users }))
-    .catch((err) => checkError(err, res));
+    .catch(next);
 };
 
-module.exports.getUser = (req, res) => {
+module.exports.getUser = (req, res, next) => {
   User
     .findById(req.params.userId)
     .orFail(() => {
       throw new NotFoundError('Запрашиваемый пользователь не найден');
     })
     .then((user) => res.send({ data: user }))
-    .catch((err) => checkError(err, res));
+    .catch(next);
 };
 
-module.exports.createUser = (req, res) => {
+module.exports.createUser = (req, res, next) => {
   const {
     name,
     about,
@@ -40,10 +40,10 @@ module.exports.createUser = (req, res) => {
         password: hash,
       })
       .then((user) => res.send({ data: user })))
-    .catch((err) => checkError(err, res));
+    .catch(next);
 };
 
-module.exports.updateUser = (req, res) => {
+module.exports.updateUser = (req, res, next) => {
   const { name, about } = req.body;
 
   User
@@ -60,10 +60,10 @@ module.exports.updateUser = (req, res) => {
       throw new NotFoundError('Не удалось обновить информацию о пользователе, т.к. он не найден в базе данных ');
     })
     .then((user) => res.send({ data: user }))
-    .catch((err) => checkError(err, res));
+    .catch(next);
 };
 
-module.exports.updateAvatar = (req, res) => {
+module.exports.updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
 
   User
@@ -77,13 +77,13 @@ module.exports.updateAvatar = (req, res) => {
       },
     )
     .orFail(() => {
-      throw new NotFoundError('Не удалось обновить аватар пользователя, т.к. он не найден в базе данных ');
+      throw new NotFoundError('Не удалось обновить аватар пользователя');
     })
     .then((user) => res.send({ data: user }))
-    .catch((err) => checkError(err, res));
+    .catch(next);
 };
 
-module.exports.login = (req, res) => {
+module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
   return User
@@ -93,15 +93,15 @@ module.exports.login = (req, res) => {
         token: jwt.sign({ _id: user._id }, 'some-secret', { expiresIn: '7d' }),
       });
     })
-    .catch((err) => checkError(err, res));
+    .catch(next);
 };
 
-module.exports.getCurrentUser = (req, res) => {
+module.exports.getCurrentUser = (req, res, next) => {
   User
     .findById(req.user._id)
     .orFail(() => {
       throw new NotFoundError('Запрашиваемый пользователь не найден');
     })
     .then((user) => res.send({ data: user }))
-    .catch((err) => checkError(err, res));
+    .catch(next);
 };
