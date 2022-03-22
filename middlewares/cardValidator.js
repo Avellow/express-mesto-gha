@@ -7,4 +7,13 @@ const cardValidator = celebrate({
   }),
 });
 
-module.exports = cardValidator;
+const cardIdValidator = celebrate({
+  params: Joi.object().keys({
+    cardId: Joi.string().hex().length(24),
+  }),
+});
+
+module.exports = {
+  cardValidator,
+  cardIdValidator,
+};
