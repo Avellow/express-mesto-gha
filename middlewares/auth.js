@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
-const { handleAuthError } = require('../errors/errors');
 const TokenCheckError = require('../errors/TokenCheckError');
+const AuthError = require('../errors/AuthError');
 
 const extractBearerHeader = (header) => header.replace('Bearer ', '');
 
@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer')) {
-    return handleAuthError(res);
+    next(new AuthError('Необходима авторизация'));
   }
 
   const token = extractBearerHeader(authorization);
@@ -17,8 +17,7 @@ module.exports = (req, res, next) => {
   try {
     payload = jwt.verify(token, 'some-secret');
   } catch (e) {
-    const err = new TokenCheckError('Некорректный токен');
-    next(err);
+    next(new TokenCheckError('Некорректный токен'));
   }
 
   req.user = payload;
