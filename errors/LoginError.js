@@ -4,6 +4,6 @@ class LoginError extends Error {
     this.name = 'LoginError';
     this.statusCode = 401;
   }
-};
+}
 
 module.exports = LoginError;
