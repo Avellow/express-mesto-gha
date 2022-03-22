@@ -14,6 +14,12 @@ const userUpdateValidator = celebrate({
   }),
 });
 
+const userIdValidator = celebrate({
+  params: Joi.object().keys({
+    userId: Joi.string().hex().length(24),
+  }),
+});
+
 const avatarUpdateValidator = celebrate({
   body: Joi.object().keys({
     avatar: Joi.string().uri(),
@@ -24,4 +30,5 @@ module.exports = {
   userCreationValidator,
   userUpdateValidator,
   avatarUpdateValidator,
+  userIdValidator,
 };
