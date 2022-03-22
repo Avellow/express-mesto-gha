@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
-const { NotFoundError } = require('../errors/errors');
+const NotFoundError = require('../errors/NotFoundError');
 
 module.exports.getUsers = (req, res, next) => {
   User
@@ -38,8 +38,8 @@ module.exports.createUser = (req, res, next) => {
         avatar,
         email,
         password: hash,
-      })
-      .then((user) => res.send({ data: user })))
+      }))
+    .then((user) => res.send({ data: user }))
     .catch(next);
 };
 
