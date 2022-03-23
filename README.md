@@ -1,4 +1,4 @@
-[![Tests](https://github.com/Avellow/express-mesto-gha/actions/workflows/tests-14-sprint.yml/badge.svg)](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-14-sprint.yml)
+[![Tests](https://github.com/Avellow/express-mesto-gha/actions/workflows/tests-14-sprint.yml/badge.svg)](https://github.com/Avellow/express-mesto-gha/actions/workflows/tests-14-sprint.yml)
 # Проект Mesto (back-end)
 
 Основная задача - написать с самого нуля back-end серверное приложение проекта Место.
