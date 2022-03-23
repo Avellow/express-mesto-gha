@@ -1,5 +1,6 @@
 const Card = require('../models/card');
 const NotFoundError = require('../errors/NotFoundError');
+const PermissionError = require('../errors/PermissionError');
 
 module.exports.getCards = (req, res, next) => {
   Card
@@ -22,9 +23,15 @@ module.exports.deleteCard = (req, res, next) => {
   const userId = req.user._id;
 
   Card
-    .findOneAndRemove({ _id: cardId, owner: userId })
+    .findById({ _id: cardId })
     .orFail(() => {
-      throw new NotFoundError(`Не удалось удалить карточку с id ${cardId}!`);
+      throw new NotFoundError(`Карточка с id ${cardId} не найдена!`);
+    })
+    .then((card) => {
+      if (card.owner.toString() !== userId) {
+        throw new PermissionError('Отказано в удалении. Пользователь не является владельцом карточки');
+      }
+      return Card.findByIdAndRemove(card._id);
     })
     .then((card) => res.send({ message: 'Успешно удалена карточка:', data: card }))
     .catch(next);
