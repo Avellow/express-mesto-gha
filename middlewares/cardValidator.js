@@ -3,7 +3,7 @@ const isUrl = require('validator/lib/isURL');
 
 const checkUrl = (url) => {
   if (!isUrl(url, { require_protocol: true })) {
-    throw new Error('Невалидный email');
+    throw new Error('Невалидная ссылка');
   }
 
   return url;
