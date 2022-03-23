@@ -40,7 +40,14 @@ module.exports.createUser = (req, res, next) => {
         password: hash,
       }))
     .then((user) => res.send({ data: user }))
-    .catch(next);
+    .catch((e) => {
+      if (e.code === 11000) {
+        const err = new Error('Пользователь с таким email уже существует!');
+        err.statusCode = 409;
+        next(err);
+      }
+      next(e);
+    });
 };
 
 module.exports.updateUser = (req, res, next) => {
