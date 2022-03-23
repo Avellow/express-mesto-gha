@@ -1,9 +1,18 @@
 const { celebrate, Joi } = require('celebrate');
+const isUrl = require('validator/lib/isURL');
+
+const checkUrl = (url) => {
+  if (!isUrl(url, { require_protocol: true })) {
+    throw new Error('Невалидный email');
+  }
+
+  return url;
+};
 
 const cardValidator = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
-    link: Joi.string().uri().required(),
+    link: Joi.string().required().custom(checkUrl, 'image link validation'),
   }),
 });
 
