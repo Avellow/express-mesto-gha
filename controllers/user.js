@@ -39,6 +39,7 @@ module.exports.createUser = (req, res, next) => {
         email,
         password: hash,
       }))
+    .then(({ _id }) => User.findById(_id))
     .then((user) => res.send({ data: user }))
     .catch((e) => {
       if (e.code === 11000) {
