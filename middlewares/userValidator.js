@@ -9,7 +9,7 @@ const checkUrl = (url) => {
   return url;
 };
 
-const userCreationValidator = celebrate({
+const userValidator = celebrate({
   body: Joi.object().keys({
     email: Joi.string().email().required(),
     password: Joi.string().required().min(4),
@@ -36,7 +36,7 @@ const avatarUpdateValidator = celebrate({
 });
 
 module.exports = {
-  userCreationValidator,
+  userValidator,
   userUpdateValidator,
   avatarUpdateValidator,
   userIdValidator,

@@ -5,7 +5,7 @@ const { errors } = require('celebrate');
 const auth = require('./middlewares/auth');
 const { login, createUser } = require('./controllers/user');
 const errorHandler = require('./middlewares/errorHandler');
-const { userCreationValidator } = require('./middlewares/userValidator');
+const { userValidator } = require('./middlewares/userValidator');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -13,8 +13,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/signin', login);
-app.post('/signup', userCreationValidator, createUser);
+app.post('/signin', userValidator, login);
+app.post('/signup', userValidator, createUser);
 
 app.use(auth);
 
